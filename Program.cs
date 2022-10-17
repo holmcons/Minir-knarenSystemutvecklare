@@ -5,52 +5,50 @@
         static void Main(string[] args)
         {
             //Creat a list to save the results from the calculations.
-            List<double> list = new List<double>();
+            List<string> list = new List<string>();
 
             //Creat a bool as an button so you can quit the program from the menu.
             bool programRunning = true;
+            string saveAnswer = "";
 
             while (programRunning)
             {
-                Console.Clear();
-                Console.WriteLine();
+                Console.Clear();               
                 // Välkomnande meddelande
-                Console.WriteLine("Welcome to the calculator!");
-                Console.WriteLine("Press 1 for count with the calculator");
+                Console.WriteLine("\n\n\n\n\t\tWelcome to the calculator!\n");
+                Console.WriteLine("\t\tPress 1 for count with the calculator");
                 //Vilken typ av uträkning kanske borde finnas i menyvalet???
-                Console.WriteLine("Press 2 to see old results");
-                Console.WriteLine("Press 3 for quit the program");
+                Console.WriteLine("\t\tPress 2 to see old results");
+                Console.WriteLine("\t\tPress 3 for quit the program (answer/s are going to be delete)");
                 Console.WriteLine();
 
 
                 Int32.TryParse(Console.ReadLine(), out int menyVal);
                 if (menyVal == 1)
                 {
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("This calculator can do a calculations with two numbers.");
+                    Console.Clear();                    
+                    Console.WriteLine("\n\n\n\n\t\tThis calculator can do a calculations with two numbers.");
                     double nr1 = 0;
                     double nr2 = 0;
-                    double answer = 0;
+                    double answer = 0;                    
                     bool loopRunning = true;
                     while (loopRunning)
                     {
                         try
                         { //Börja med siffra, sen vad jag vill räkna med, sen siffra, fortsätt till det trycks på likamed och spara.
 
-                            Console.WriteLine();
-                            Console.Write("Write your first number: ");
+                            Console.Clear();
+                            Console.Write("\n\n\n\n\t\tWrite your first number: ");
                             nr1 = double.Parse(Console.ReadLine());
                             loopRunning = false;
                         }
                         catch (Exception ex)
                         {
-                            Console.Clear();
-                            Console.WriteLine();
-                            Console.WriteLine("Please, write a number");
-                            Console.WriteLine();
+                            Console.Clear();                            
+                            Console.WriteLine("\n\n\n\n\t\tPlease, write a number (press any key)\n");
+                            Console.WriteLine("Error message:");
                             Console.WriteLine(ex);
-                            //Console.ReadKey();
+                            Console.ReadKey();
                         }
                     }
                     loopRunning = true;
@@ -59,17 +57,16 @@
                         try
                         { //Börja med siffra, sen vad jag vill räkna med, sen siffra, fortsätt till det trycks på likamed och spara.
 
-                            Console.Clear();
-                            Console.WriteLine();
-                            Console.Write("Write your second number: ");
+                            Console.Clear();                            
+                            Console.Write("\n\n\n\n\t\tWrite your second number: ");
                             nr2 = double.Parse(Console.ReadLine());
                             loopRunning = false;
                         }
                         catch (Exception ex)
                         {
                             Console.Clear();
-                            Console.WriteLine("Please, write a number");
-                            Console.WriteLine();
+                            Console.WriteLine("\n\n\n\n\t\tPlease, write a number (press any key)\n");
+                            Console.WriteLine("Error message:");
                             Console.WriteLine(ex);
                             Console.ReadKey();
 
@@ -82,80 +79,96 @@
                         try
                         { //Börja med siffra, sen vad jag vill räkna med, sen siffra, fortsätt till det trycks på likamed och spara.
 
-                            Console.Clear();
-                            Console.WriteLine();
-                            Console.WriteLine("Write an operand (+, -, /, *):");
+                            Console.Clear();                            
+                            Console.WriteLine("\n\n\n\n\t\tWrite an operand (+, -, /, *):");
                             oper = char.Parse(Console.ReadLine());
-                            if (oper == '+' || oper == '-' || oper == '/' || oper == '*')
+                            if (oper != '+' || oper != '-' || oper != '/' || oper != '*')
                             {
+                                switch (oper)
+                                {
+                                    case '+':
+                                        answer = nr1 + nr2;
+                                        break;
+
+                                    case '-':
+                                        answer = nr1 - nr2;
+                                        break;
+
+                                    case '/':
+                                        answer = nr1 / nr2;
+                                        break;
+
+                                    case '*':
+                                        answer = nr1 * nr2;
+                                        break;
+
+                                    default:
+                                        //This message shows up if something else then 1, 2 or 3 rights when the menu is open.
+
+                                        break;
+
+                                }
+                                Console.Clear();
+                                Console.WriteLine("\n\n\n\n\t\tYour calculation are as follow: " + nr1 + oper + nr2 + "=" + answer);
+                                saveAnswer = "" + nr1 + oper + nr2 + "=" + answer;
+                                list.Add(saveAnswer);
+                                Console.WriteLine("\t\tYour answer is saved as " + saveAnswer + " and you can see it if you press 2 in the first menu.");
+                                Console.ReadKey();
                                 loopRunning = false;
                             }
                             else
-                                Console.WriteLine("Please, write an operand (+, -, / or *).");
+                                Console.WriteLine("\n\n\n\n\t\tPlease, write an operand (+, -, / or *).");
 
                         }
                        catch (Exception ex)
                         {
                             Console.Clear();
-                            Console.WriteLine("Please, write an operand (+, -, / or *).");
+                            Console.WriteLine("\n\n\n\n\t\tPlease, write an operand (+, -, / or *).");
                             Console.WriteLine();
                             Console.WriteLine(ex);
                             //Console.ReadKey();
 
-                        }
-                       
-                        switch (oper)
-                        {
-                            case '+':
-                                answer = nr1 + nr2;
-                                break;
-
-                            case '-':
-                                answer = nr1 - nr2;
-                                break;
-
-                            case '/':
-                                answer = nr1 / nr2;
-                                break;
-
-                            case '*':
-                                answer = nr1 * nr2;
-                                break;
-
-                            default:
-                                //This message shows up if something else then 1, 2 or 3 rights when the menu is open.
-
-                                break;
-
-                        }
-                        Console.WriteLine("Din uträkning ser ut som följer: " + nr1 + oper + nr2 + "=" + answer);
-                        Console.ReadLine();
+                        }                  
                     }
                 }
                 if (menyVal == 2)
                 {
-                    try
-                    {
-                        //for(int)
-                    }
+                    Console.Clear();
+                    //try
+                    //{
+                        for (int i =0; i<list.Count; i++)
+                        {
+                            Console.WriteLine("\n\t--------------------------------------------------------\n");
+                            Console.WriteLine("\t\tYour answers are as follow:");
+                            Console.Write("\t\tNr:" + (i + 1) + " ");
+                            Console.WriteLine(list[i]);
+                        }
+                    /*}
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Det finns inga uträkningar sparade ännu. Gör en uträkning!");
+                        Console.WriteLine("\n\n\n\n\t\tThere are no calculations saved yet. Please do some calculations!");
                         Console.WriteLine(ex);
+                        Console.ReadKey();
                     }
-                    Console.WriteLine("Tryck på en tangent för att komma tillbaka till menyn.");
+                    */
+                    Console.WriteLine("\n\n\n\n\t\tPress any key to go back to the menu.");
+                    Console.ReadKey();
+                    continue;
                 }
 
                 if (menyVal == 3)
                 {
+                    Console.Clear ();
                     Console.WriteLine();
-                    Console.WriteLine("Thank you. Bye!");
+                    Console.WriteLine("\n\n\n\n\t\tThank you. Bye!");
                     programRunning = false;
                 }
 
-                else
-                    Console.WriteLine("You need to right 1, 2 or 3.");
+                else if (saveAnswer == "")
+                {
+                    Console.WriteLine("\n\n\n\n\t\tYou need to right 1, 2 or 3.");
                     Console.ReadKey();
+                }
             }
             //Created an method to have an menu in the menu
             //It will return witch parameter to count whit
